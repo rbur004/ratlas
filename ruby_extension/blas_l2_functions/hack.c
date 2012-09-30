@@ -1,0 +1,5 @@
+#include "rb_blas_mv.c"
+#include "rb_blas_r.c"
+#include "rb_blas_r2.c"
+#include "rb_blas_rc.c"
+#include "rb_blas_sv.c"
