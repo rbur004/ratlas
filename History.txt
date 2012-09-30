@@ -1,0 +1,53 @@
+------------------------------------------------------------
+revno: 8
+committer: rob@burrowes.org
+branch nick: trunk
+timestamp: Wed 2008-09-03 22:31:57 +1200
+message:
+  Added truss examples and fixed code to make these work
+------------------------------------------------------------
+revno: 7
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Mon 2007-12-31 23:50:29 +1300
+message:
+  Adjusting gsl cblas tests for Atlas cblas. Fixing L1 calls so tests work.
+------------------------------------------------------------
+revno: 6
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Sun 2007-12-30 22:55:33 +1300
+message:
+  Added GSL CBLAS L1 Tests. Added a ReadMe. Started to remodel the code structure to add data type sub-classes of Blas. Tmp changes to use Mac OS X cblas for testing
+------------------------------------------------------------
+revno: 5
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Wed 2007-12-12 17:48:26 +1dump. keeping the truss example in sync with changes. Work in progress
+------------------------------------------------------------
+revno: 4
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Wed 2007-12-12 17:47:11 +1300
+message:
+  Nightly dump. Started building jumptable handler. Work in progress
+------------------------------------------------------------
+revno: 3
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Wed 2007-12-12 17:46:07 +1300
+message:
+  Nightly dump. Started building jumptable handler. Work in progress
+------------------------------------------------------------
+revno: 2
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: trunk
+timestamp: Tue 2007-12-11 11:08:32 +1300
+message:
+  Added in jump tables for Blas l2 routines. Work in progress
+------------------------------------------------------------
+revno: 1
+committer: Rob Burrowes <rob@burrowes.org>
+branch nick: ratlas
+timestamp: Wed 2007-12-05 17:39:22 +1300
+messagport
