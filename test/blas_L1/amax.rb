@@ -1,6 +1,6 @@
 require 'ratlas'
 include RAtlas
-require 'testblas.rb'
+require '../testblas.rb'
 require 'complex' 
 include Math
 
