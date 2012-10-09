@@ -3,7 +3,7 @@ SHELL = /bin/sh
 
 #### Start of system configuration section. ####
 
-srcdir = .
+srcdir = /Users/rbur004/Documents/src/ratlas/trunk/ruby_extension
 topdir = /usr/lib/ruby/1.8/i686-darwin9.3.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
@@ -45,7 +45,7 @@ LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
 CFLAGS   =  -fno-common -g -O2 -pipe -fno-common $(cflags) 
-INCFLAGS = -I. -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I.
+INCFLAGS = -I. -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension
 DEFS     = 
 CPPFLAGS =  -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  
 CXXFLAGS = $(CFLAGS) 
@@ -86,7 +86,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS =  -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  
+LIBS =  -lrotg -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  
 SRCS = blas_l1_c2rb.c blas_l2_c2rb.c blas_l3_c2rb.c blas_util.c complex_blas.c double_blas.c double_complex_blas.c double_lapack.c integer_blas.c lapack_c2rb.c rb_atlas.c rb_blas.c rb_lapack.c single_blas.c single_lapack.c
 OBJS = blas_l1_c2rb.o blas_l2_c2rb.o blas_l3_c2rb.o blas_util.o complex_blas.o double_blas.o double_complex_blas.o double_lapack.o integer_blas.o lapack_c2rb.o rb_atlas.o rb_blas.o rb_lapack.o single_blas.o single_lapack.o
 TARGET = ratlas

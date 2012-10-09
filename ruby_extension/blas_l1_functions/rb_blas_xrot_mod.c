@@ -21,12 +21,12 @@ static VALUE rb_blas_xrot_mod(int argc, VALUE *argv, VALUE self)
   int incx;
   int incy;
   int n;
-  float c_f[2], s_f[2];
-  double c_d[2], s_d[2];
+  sRotg *srotg;
+  dRotg *drotg;
   char error_msg[64];
-  VALUE vector_y,  c_value, s_value,  n_value,  incx_value,  incy_value;
+  VALUE vector_y, rotg,  n_value,  incx_value,  incy_value;
 
-  rb_scan_args(argc, argv, "15", &vector_y, &c_value,  &s_value,  &incx_value, &incy_value, &n_value);
+  rb_scan_args(argc, argv, "23", &vector_y, &rotg,  &incx_value, &incy_value, &n_value);
 
   Data_Get_Struct(self, Matrix, dx);
   Data_Get_Struct(vector_y, Matrix, dy);
@@ -60,30 +60,21 @@ static VALUE rb_blas_xrot_mod(int argc, VALUE *argv, VALUE self)
   { sprintf(error_msg, "Vectors are different data_types");
     rb_raise(rb_eRuntimeError, error_msg);
   }
+  
+  if(rotg == Qnil)
+  { sprintf(error_msg, "[SD]rotg argument is nil?");
+    rb_raise(rb_eRuntimeError, error_msg);
+  }
 
   switch(dx->data_type)
   {
   case Single_t: //s
-    if(c_value == Qnil)
-      c_f[0] = 1.0;
-    else
-      c_f[0] = NUM2DBL(c_value);
-    if(s_value == Qnil)
-      s_f[0] = 1.0;
-    else
-      s_f[0] = NUM2DBL(s_value);
-    cblas_srot(n , (float *)dx->data, incx, (float *)dy->data, incy, c_f[0], s_f[0]); 
+    Data_Get_Struct(rotg, sRotg, srotg);
+    cblas_srot(n , (float *)dx->data, incx, (float *)dy->data, incy, srotg->c, srotg->s); 
     break;
   case Double_t: //d
-    if(c_value == Qnil)
-      c_d[0] = 1.0;
-    else
-      c_d[0] = NUM2DBL(c_value);
-    if(s_value == Qnil)
-      s_d[0] = 1.0;
-    else
-      s_d[0] = NUM2DBL(s_value);
-    cblas_drot(n , (double *)dx->data, incx, (double *)dy->data, incy, c_d[0], s_d[0]); 
+    Data_Get_Struct(rotg, dRotg, drotg);
+    cblas_drot(n , (double *)dx->data, incx, (double *)dy->data, incy, drotg->c, drotg->s); 
     break;
   default:
     sprintf(error_msg, "Invalid data_type (%d) in Matrix", dx->data_type);

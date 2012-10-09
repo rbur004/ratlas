@@ -5,6 +5,7 @@
 #include "blas_l1_c2rb.h"
 #include "blas_l2_c2rb.h"
 #include "blas_l3_c2rb.h"
+#include "rotg/rb_rotg.h"
 
 enum DATA_TYPE   {Double_t=1, Single_t=2, Integer_t=3, Complex_t=4, Double_Complex_t=5 };
 #ifdef RB_BLAS_C
@@ -51,15 +52,6 @@ typedef struct Matrix
   void    *last_result; //Bit of a Hack. Used to retain Scalar results in Native format to use in the next call.
 } Matrix;
 
-
-typedef struct {
-  int     matrix_type;  //Intended to select the fortran lib call as array index.
-  int     flags; //For Move these could be HAS_UPLO, HAS_TRANS, HAS_DIAG
-  int     ( *sXX )(); //Variable arg length and arg types depending on the blas call.
-  int     ( *dXX )();
-  int     ( *cXX )();
-  int     ( *zXX )();
-} JumpTable;
 
 VALUE new_subclass_init_helper(int matrix_type, int data_type, int argc, VALUE *argv, VALUE obj);
 VALUE new_row_major_matrix_helper(int matrix_type, int data_type, int argc, VALUE *argv, VALUE obj);

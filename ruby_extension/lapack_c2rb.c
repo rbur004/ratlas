@@ -2,9 +2,10 @@
 #include "rb_blas.h"
 #include "rb_lapack.h"
 #include "lapack_c2rb.h"
-#include "lapack/hack.c"
 
+#include "lapack/hack.c" //Include the c funtctions.
 
+//Define the ruby names for the C library functions.
 void Sub_Init_lapack(VALUE myClass)
 {
   rb_define_method(myClass, "xgesv!", rb_lapack_xgesv_mod, 2);

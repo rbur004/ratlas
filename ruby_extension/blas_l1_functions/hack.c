@@ -16,13 +16,10 @@
 #include "rb_blas_xnrm2.c"
 
 #include "rb_blas_xrot_mod.c"
-#include "rb_blas_xrotg.c"
 #include "rb_blas_xrotm.c"
-#include "rb_blas_xrotmg.c"
 
 #include "rb_blas_xscal_mod.c"
 #include "rb_blas_xscal.c"
 
 #include "rb_blas_xswap_mod.c"
 
-#include "rb_blas_times.c"

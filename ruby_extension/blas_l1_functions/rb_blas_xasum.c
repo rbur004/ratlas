@@ -16,6 +16,7 @@
 
 *   Ruby
 *     x.asum(n = x.ncols, incx = 1)
+* n and incx are optional so subsets of the vector can be specified.
 */
 
 static VALUE rb_blas_xasum(int argc, VALUE *argv, VALUE self)

@@ -12,4 +12,7 @@ have_library('cblas')
 have_library('f77lapack')
 have_library('lapack')
 have_library('clapack')
+have_library('rotg')
+
 create_makefile('ratlas')
+

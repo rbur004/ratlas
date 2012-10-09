@@ -1,0 +1,84 @@
+have_library: checking for main() in -latlas... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.      -lruby-static -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lblas... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -latlas  -lruby-static -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lcblas... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -lblas -latlas  -lruby-static -lcblas -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lf77lapack... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -lcblas -lblas -latlas  -lruby-static -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -llapack... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -lf77lapack -lcblas -lblas -latlas  -lruby-static -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lclapack... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -llapack -lf77lapack -lcblas -lblas -latlas  -lruby-static -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+
+have_library: checking for main() in -lrotg... -------------------- yes
+
+"gcc -o conftest -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -g -O2 -pipe -fno-common   conftest.c  -L. -L/usr/lib -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/ -L.     -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -lruby-static -lrotg -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+/* end */
+
+--------------------
+

@@ -647,49 +647,6 @@ static VALUE rblas_each_by_col_with_index(VALUE obj)
   return Qnil; 
 }
 
-static VALUE rblas_abs(VALUE obj)
-{
-  //Definitely a hack. We want to be able to test the results with the same syntax as scalars
-  //i.e. if (error = (result - expected)).abs > bound ...
-  Matrix *m, *abs_m;
-  int r,c;
-  VALUE abs_matrix;
-
-  Data_Get_Struct(obj, Matrix, m);
-  //argv[0] = rblas_new_instance(dy->class_id, dy->data, dy->nrows, dy->ncols, dy->data_type);
-  abs_matrix = rblas_new_instance( m->class_id, NULL, m->nrows, m->ncols, m->data_type, m->matrix_type, m->cblas_order);
-  Data_Get_Struct(abs_matrix, Matrix, abs_m);
-
-  for(r = 0; r < m->nrows; r++)
-  {
-    for(c = 0; c < m->ncols; c++)
-    { //use ruby to do this, as it will happily handle the complex data types.
-      value_to_member(abs_m, r, c, rb_funcall(member_to_value(m, r, c),  rb_intern("abs"), 0) );
-    } 
-  }
-
-  return abs_matrix;
-}
-
-static VALUE rblas_greater(VALUE obj, VALUE bound)
-{
-  //Definitely a hack. We want to be able to test the results with the same syntax as scalars
-  //i.e. if (error = (result - expected)).abs > bound ...
-  Matrix *m;
-  int r,c;
-
-  Data_Get_Struct(obj, Matrix, m);
-
-  for(r = 0; r < m->nrows; r++)
-  {
-    for(c = 0; c < m->ncols; c++)
-    { //use ruby to do this, as it will happily handle the complex data types.
-      if (TYPE(rb_funcall(member_to_value(m, r, c),rb_intern(">"), 1, bound)) == TYPE(Qfalse)) return Qfalse;
-    } 
-  }
-  return Qtrue;
-}
-
 static VALUE rblas_to_a(VALUE obj)
 {
   Matrix *m;
@@ -762,6 +719,8 @@ static VALUE rblas_to_s(VALUE obj)
   return s;
 }
 
+#include "blas/hack.c" //Include all the C function calls.
+
 
 // This is called when the Ruby interpreter loads this C extension.
 // The part after "Init_" is the name of the C extension specified
@@ -821,7 +780,10 @@ VALUE Init_blas(VALUE myModule)
   //Couple of hacks to test the matrix results are in bounds.
   //The intent is to get the same behaviour as testing a scalar is in bounds.
   rb_define_method(myClass, "abs", rblas_abs, 0); //returns abs values of the array elements for testing results are in bounds.
-  rb_define_method(myClass, ">", rblas_greater, 1);  //validates that Matricies elements are all > bound testing results are in bounds.
+  rb_define_method(myClass, ">", rblas_greater, 1); 
+  rb_define_method(myClass, "==", rblas_equal, 1);  
+  rb_define_method(myClass, "<", rblas_less, 1); 
+  rb_define_method(myClass, "*", rb_blas_times, 1); 
   
   rb_define_method(myClass, "to_a", rblas_to_a, 0); //returns a ruby array from the matrix.
   rb_define_method(myClass, "to_s", rblas_to_s, 0); //returns a ruby string.
@@ -887,3 +849,4 @@ VALUE Init_blas(VALUE myModule)
   
   return myClass;
 }
+
