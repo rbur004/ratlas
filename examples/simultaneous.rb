@@ -110,9 +110,9 @@ class Truss
     members.each do |m|
       #print "    #{m[0]}, "
       case m[1][1]
-      when 'Fx' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(1.0), bd(0.0), bd(0.0)],nil) )
-      when 'Fy' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(0.0), bd(1.0), bd(0.0)],nil) )
-      when 'Fz' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(0.0), bd(0.0), bd(1.0)],nil) )
+      when 'Fx' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(1.0), bd(0.0), bd(0.0)],nil) )
+      when 'Fy' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(0.0), bd(1.0), bd(0.0)],nil) )
+      when 'Fz' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[bd(0.0), bd(0.0), bd(1.0)],nil) )
       else @members << Member.new( m[0], @joints[ m[1][0] ], @joints[ m[1][1] ] )
       end
     end

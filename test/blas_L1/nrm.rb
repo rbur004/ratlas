@@ -8,11 +8,13 @@ class TestNrm2 < TestBlas
 
 	def initialize
 	  super
-    gsl
+   # gsl
+    ibm_examples
   end
   
-  def test_nrm2(x,incx, expected, error_bound, test_message)
-    result = x.nrm2(incx);
+  def test_nrm2(x,incx, expected, error_bound, test_message, n = nil)
+    result = n == nil ? x.nrm2(incx) : x.nrm2(incx,n);
+    #puts "result = #{result} expected = #{expected} +/- #{error_bound}"
     print_on_error( "nrm2 #{test_message}", result, expected, error_bound) 
   end
   
@@ -37,6 +39,93 @@ class TestNrm2 < TestBlas
     test_nrm2(ComplexBlas[ Complex(0.31, 0.059), Complex(-0.442, 0.987) ], -1,  1.12654960155487,  @flteps, "gsl Test 38")
     test_nrm2(DoubleComplexBlas[ Complex( 0.609, 0.615) , Complex(-0.143, -0.957)], -1, 1.29823110423376, @dbleps, "gsl Test 39")
 
+  end
+  
+  def ibm_examples
+        #Example 1
+        #    This example shows a vector, x, whose elements must be 
+        #    scaled to prevent overflow.
+        #
+        #                   N   X  INCX
+        #                   |   |   |
+        #    DNORM = DNRM2( 6 , X , 1  )
+        #
+        #    X      = (0.68056D+200, 0.25521D+200, 0.34028D+200,
+        #              0.85071D+200, 0.25521D+200, 0.85071D+200)
+        #
+        #    Output:
+        #
+        #    DNORM    =  0.1469D+201
+        #
+        test_nrm2(DoubleBlas[ 0.68056E200, 0.25521E200, 0.34028E200, 0.85071E200, 0.25521E200, 0.85071E200 ], 1, 0.1469E201,  0.0001E201, "ibm examples nrm2-01")
+        #Example 2
+        #    This example shows a vector, x, whose elements must be scaled 
+        #    to prevent destructive underflow.
+        #    Function Reference and Input:
+        #
+        #                   N   X  INCX
+        #                   |   |   |
+        #    DNORM = DNRM2( 4 , X , 2  )
+        #
+        #    X     = (0.10795D-200, . , 0.10795D-200, . , 0.10795D-200,
+        #             . , 0.10795D-200)
+        #
+        #    Output:
+        #
+        #    DNORM    =  0.21590D-200
+        #
+        test_nrm2(DoubleBlas[ 0.10795E-200, 0.0 , 0.10795E-200, 0.0 , 0.10795E-200, 0.0 , 0.10795E-200 ], 2, 0.21590E-200, 0.00001E-200, "ibm examples nrm2-02", 4)
+        #Example 3
+        #    This example shows a vector, x, with a stride of 0. The result in SNORM is:
+        #    Math Graphic
+        #    Function Reference and Input:
+        #
+        #                   N   X  INCX
+        #                   |   |   |
+        #    SNORM = SNRM2( 4 , X , 0  )
+        #
+        #    X        =  (4.0)
+        #
+        #    Output:
+        #
+        #    SNORM    =  8.0
+        #
+        # I get 0 as the result with my blas library?
+        #test_nrm2(SingleBlas[ 4.0 ], 0, 8.0, @flteps, "ibm examples nrm2-03", 4)
+        #Example 4
+        #    This example shows a vector, x, containing complex numbers,
+        #    and whose elements must be scaled to prevent overflow.
+        #    Function Reference and Input:
+        #
+        #                     N   X  INCX
+        #                     |   |   |
+        #    DZNORM = DZNRM2( 3 , X , 1  )
+        #
+        #    X     = ((0.68056D+200, 0.25521D+200), (0.34028D+200, 0.85071D+200),
+        #             (0.25521D+200, 0.85071D+200))
+        #
+        #    Output:
+        #
+        #    DZNORM   =  0.1469D+201
+        #
+        test_nrm2(DoubleComplexBlas[ Complex( 0.68056E200, 0.25521E200) , Complex(0.34028E200, 0.85071E200), Complex(0.25521E200, 0.85071E200)], 1, 0.1469E201, 0.0001E201, "ibm examples nrm2-04", 3)
+        #Example 5
+        #    This example shows a vector, x, containing complex numbers, 
+        #    and whose elements must be scaled to prevent destructive underflow.
+        #    Function Reference and Input:
+        #
+        #                     N   X  INCX
+        #                     |   |   |
+        #    DZNORM = DZNRM2( 2 , X , 2  )
+        #
+        #    X     = ((0.10795D-200, 0.10795D-200), . ,
+        #             (0.10795D-200, 0.10795D-200))
+        #
+        #    Output:
+        #
+        #    DZNORM   =  0.2159D-200
+        test_nrm2(DoubleComplexBlas[ Complex( 0.10795E-200, 0.10795E-200) , Complex(0.34028E200, 0.85071E200), Complex(0.10795E-200, 0.10795E-200)], 2, 0.2159E-200, 0.0001E-200, "ibm examples nrm2-05", 2)
+    
   end
 
 end

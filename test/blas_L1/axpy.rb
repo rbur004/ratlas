@@ -10,12 +10,18 @@ class TestAxpy < TestBlas
 	  super
 	  simple_sums
     gsl
+    ibm_examples
   end
   
-  def test_axpy(x,incx,y,incy,alpha , x_expected, y_expected, error_bound, test_message)
-    x.axpy!(y, alpha, incx, incy)
-    print_on_error( "axpy #{test_message}", x, x_expected, error_bound) 
-    print_on_error( "axpy #{test_message}", y, y_expected, error_bound) 
+  def test_axpy(x,incx,y,incy,alpha , x_expected, y_expected, error_bound, test_message, n = nil)
+    beta = 1 #beta, isn't in the standard blas version's tests. 
+    if n == nil 
+      x.axpy!(y, alpha,  beta, incx, incy) 
+    else
+      x.axpy!(y, alpha,  beta, incx, incy, n) 
+    end
+    print_on_error( "axpy! #{test_message}", x, x_expected, error_bound) 
+    print_on_error( "axpy! #{test_message}", y, y_expected, error_bound) 
   end
   
   def gsl
@@ -56,6 +62,95 @@ class TestAxpy < TestBlas
     print_on_error( "2D * 0", r[0], 0.036, @flteps)
     print_on_error( "2D * 0", r[1], 0.32, @flteps)
   end
+  
+  def ibm_examples
+    #Example 1
+    #This example shows vectors x and y with positive strides.
+    #Call Statement and Input:
+    #
+    #            N  ALPHA  X  INCX  Y  INCY
+    #            |    |    |   |    |   |
+    #CALL SAXPY( 5 , 2.0 , X , 1  , Y , 2  )
+    # 
+    #X        =  (1.0, 2.0, 3.0, 4.0, 5.0)
+    #Y        =  (1.0, . , 1.0, . , 1.0, . , 1.0, . , 1.0)
+    #
+    #Output:
+    #
+    #Y        =  (3.0, . , 5.0, . , 7.0, . , 9.0, . , 11.0)
+    #
+    test_axpy(SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ], 1, SingleBlas[1.0, 2.0 , 1.0, 2.0 , 1.0, 2.0 , 1.0, 2.0 , 1.0], 2, 2.0, SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0  ], SingleBlas[3.0, 2.0 , 5.0, 2.0 , 7.0, 2.0 , 9.0, 2.0 , 11.0], @flteps, "ibm example axpy-01")
+    #Example 2
+    #This example shows vectors x and y having strides of opposite signs. For y, which has negative stride, processing begins at element Y(5), which is 1.0.
+    #Call Statement and Input:
+    #
+    #            N  ALPHA  X  INCX  Y   INCY
+    #            |    |    |   |    |    |
+    #CALL SAXPY( 5 , 2.0 , X , 1  , Y , -1  )
+    # 
+    #X        =  (1.0, 2.0, 3.0, 4.0, 5.0)
+    #Y        =  (5.0, 4.0, 3.0, 2.0, 1.0)
+    #
+    #Output:
+    #
+    #Y        =  (15.0, 12.0, 9.0, 6.0, 3.0)
+    #
+    test_axpy(SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ], 1, SingleBlas[5.0, 4.0, 3.0, 2.0, 1.0], -1, 2.0, SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0  ], SingleBlas[15.0, 12.0, 9.0, 6.0, 3.0], @flteps, "ibm example axpy-02")
+    #Example 3
+    #This example shows a vector, x, with 0 stride. Vector x is treated like a vector of length n, all of whose elements are the same as the single element in x.
+    #Call Statement and Input:
+    #
+    #            N  ALPHA  X  INCX  Y  INCY
+    #            |    |    |   |    |   |
+    #CALL SAXPY( 5 , 2.0 , X , 0  , Y , 1  )
+    # 
+    #X        =  (1.0)
+    #Y        =  (5.0, 4.0, 3.0, 2.0, 1.0)
+    #
+    #Output:
+    #
+    #Y        =  (7.0, 6.0, 5.0, 4.0, 3.0)
+    #
+    test_axpy(SingleBlas[ 1.0 ], 0, SingleBlas[5.0, 4.0, 3.0, 2.0, 1.0], 1, 2.0, SingleBlas[ 1.0], SingleBlas[7.0, 6.0, 5.0, 4.0, 3.0], @flteps, "ibm example axpy-03", 5)
+    #Example 4
+    #This example shows how SAXPY can be used to compute a scalar value. In this case, vectors x and y contain scalar values and the strides for both vectors are 0. The number of elements to be processed, n, is 1.
+    #Call Statement and Input:
+    #
+    #            N  ALPHA  X  INCX  Y  INCY
+    #            |    |    |   |    |   |
+    #CALL SAXPY( 1 , 2.0 , X , 0  , Y , 0  )
+    # 
+    #X        =  (1.0)
+    #Y        =  (5.0)
+    #
+    #Output:
+    #
+    #Y        =  (7.0)
+    #
+    test_axpy(SingleBlas[ 1.0 ], 0, SingleBlas[5.0], 0, 2.0, SingleBlas[1.0], SingleBlas[7.0], @flteps, "ibm example axpy-04", 1)
+=begin
+    #Example 5
+    #This example shows how to use CAXPY, where vectors x and y contain complex numbers. In this case, vectors x and y have positive strides.
+    #Call Statement and Input:
+    #
+    #            N  ALPHA  X  INCX  Y  INCY
+    #            |    |    |   |    |   |
+    #CALL CAXPY( 3 ,ALPHA, X , 1  , Y , 2  )
+    # 
+    #ALPHA    =  (2.0, 3.0)
+    #X        =  ((1.0, 2.0), (2.0, 0.0), (3.0, 5.0))
+    #Y        =  ((1.0, 1.0 ), . , (0.0, 2.0), . , (5.0, 4.0))
+    #
+    #Y        =  ((-3.0, 8.0), . , (4.0, 8.0), . , (-4.0, 23.0))
+    test_axpy(ComplexBlas[Complex(1.0, 2.0), Complex(2.0, 0.0), Complex(3.0, 5.0) ], 1,
+              ComplexBlas[Complex(1.0, 1.0 ), Complex(5.0, 4.0) , Complex(0.0, 2.0), Complex(5.0, 4.0) , Complex(5.0, 4.0)], 2, Complex(2.0, 3.0), 
+              ComplexBlas[Complex(1.0, 2.0), Complex(2.0, 0.0), Complex(3.0, 5.0) ],
+              ComplexBlas[Complex(-3.0, 8.0), Complex(5.0, 4.0) , Complex(4.0, 8.0), Complex(5.0, 4.0) , Complex(-4.0, 23.0)], 
+              Complex(@flteps, @flteps), "ibm example axpy-05", 3)
+=end   
+
+  end
+  
 end 
 
 TestAxpy.new

@@ -118,15 +118,15 @@ class Truss
       #print "    #{m[0]}, #{m[1][0]}, #{m[1][1]}"
       if(@dimension == 2)
         case m[1][1]
-        when 'Fx' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[1.0, 0.0], nil) )
-        when 'Fy' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 1.0], nil) )
+        when 'Fx' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[1.0, 0.0], nil) )
+        when 'Fy' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 1.0], nil) )
         else @members << Member.new( m[0], @joints[ m[1][0] ], @joints[ m[1][1] ] )
         end
       else
         case m[1][1]
-        when 'Fx' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[1.0, 0.0, 0.0], nil) )
-        when 'Fy' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 1.0, 0.0], nil) )
-        when 'Fz' : @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 0.0, 1.0], nil) )
+        when 'Fx' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[1.0, 0.0, 0.0], nil) )
+        when 'Fy' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 1.0, 0.0], nil) )
+        when 'Fz' ; @members << Member.new( m[0], @joints[ m[1][0] ], Force.new(m[0],[0.0, 0.0, 1.0], nil) )
         else @members << Member.new( m[0], @joints[ m[1][0] ], @joints[ m[1][1] ] )
         end
       end

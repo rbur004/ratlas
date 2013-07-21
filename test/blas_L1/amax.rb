@@ -9,10 +9,12 @@ class TestAsum < TestBlas
 	def initialize 
 	  super
     gsl
+    ibm_examples
   end
   
   def test_amax(x,incx, expected, error_bound, test_message)
     result = x.amax(incx);
+    #puts result
     print_on_error( "amax #{test_message}", result, expected, error_bound) 
   end
   
@@ -35,6 +37,90 @@ class TestAsum < TestBlas
     test_amax(DoubleBlas[ 0.537, 0.826 ], -1, 1,  0, "gsl Test 61")
     test_amax(ComplexBlas[ Complex(0.993, 0.172), Complex(-0.825, 0.873) ], -1,  1,  0, "gsl Test 62")
     test_amax(DoubleComplexBlas[ Complex(  0.913, -0.436) , Complex( -0.134, 0.129)], -1, 0, 0, "gsl Test 63")
+
+  end
+  
+  def ibm_examples
+    #From IBM Blas documentations examples. 
+    # Example 1
+    #     This example shows a vector, x, with a stride of 1.
+    #     Function Reference and Input:
+    #
+    #                    N   X   INCX
+    #                    |   |    |
+    #     IMAX = ISAMAX( 9 , X ,  1   )
+    #
+    #     X        =  (1.0, 2.0, 7.0, -8.0, -5.0, -10.0, -9.0, 10.0, 6.0)
+    #
+    #     Output:
+    #
+    #     IMAX     =  6
+    #
+    test_amax(SingleBlas[ 1.0, 2.0, 7.0, -8.0, -5.0, -10.0, -9.0, 10.0, 6.0 ], 1, 5, 0, "ibm Test amax-01")
+    # Example 2
+    #     This example shows a vector, x, with a stride greater than 1.
+    #     Function Reference and Input:
+    #
+    #                    N   X   INCX
+    #                    |   |    |
+    #     IMAX = ISAMAX( 5 , X ,  2   )
+    #
+    #     X        =  (1.0, . , 7.0, . , -5.0, . , -9.0, . , 6.0)
+    #
+    #     Output:
+    #
+    #     IMAX     =  4
+    #
+    test_amax(SingleBlas[ 1.0, 0.0 , 7.0, 0.0 , -5.0, 1000 , -9.0, 0.0 , 6.0 ], 2, 3, 0, "ibm Test amax-02")
+    # Example 3
+    #     This example shows a vector, x, with a stride of 0.
+    #     Function Reference and Input:
+    #
+    #                    N   X   INCX
+    #                    |   |    |
+    #     IMAX = ISAMAX( 9 , X ,  0   )
+    #
+    #     X        =  (1.0, . , . , . , . , . , . , . , .)
+    #
+    #     Output:
+    #
+    #     IMAX     =  1
+    #
+    test_amax(SingleBlas[ 1.0, 0.0 , 7.0, 0.0 , -5.0, 1000 , -9.0, 0.0 , 6.0 ], 0, 0, 0, "ibm Test amax-03")
+    # Example 4
+    #     This example shows a vector, x, with a negative stride. Processing 
+    #     begins at element X(15), which is 2.0.
+    #     Function Reference and Input:
+    #
+    #                    N   X   INCX
+    #                    |   |    |
+    #     IMAX = ISAMAX( 8 , X , -2   )
+    #
+    #     X        =  (3.0, . , 5.0, . , -8.0, . , 6.0, . , 8.0, . ,
+    #                  4.0, . , 8.0, . , 2.0)
+    #
+    #     Output:
+    #
+    #     IMAX     =  7
+    #
+    test_amax(SingleBlas[ 3.0, 0.0 , 5.0, 0.0 , -8.0, 0.0 , 6.0, 0.0 , 8.0, 0.0 ,
+                 4.0, 0.0 , 8.0, 0.0 , 2.0 ], -2, 2, 0, "ibm Test amax-04")
+     # Example 5
+     #     This example shows a vector, x, containing complex numbers and having a 
+     #     stride of 1.
+     #     Function Reference and Input:
+     #
+     #                    N   X   INCX
+     #                    |   |    |
+     #     IMAX = ICAMAX( 5 , X ,  1   )
+     #
+     #     X        =  ((9.0 , 2.0) , (7.0 , -8.0) , (-5.0 , -10.0) , (-4.0 , 10.0),
+     #                  (6.0 , 3.0))
+     #
+     #     Output:
+     #
+     #     IMAX     =  2
+     test_amax(ComplexBlas[ Complex(9.0 , 2.0) , Complex(7.0 , -8.0) , Complex(-5.0 , -10.0) , Complex(-4.0 , 10.0), Complex(6.0 , 3.0)], -2, 1, 0, "ibm Test amax-05")
 
   end
 

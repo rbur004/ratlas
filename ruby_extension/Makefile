@@ -1,157 +1,131 @@
 
-SHELL = /bin/sh
+include conf.mk
 
-#### Start of system configuration section. ####
-
-srcdir = /Users/rbur004/Documents/src/ratlas/trunk/ruby_extension
-topdir = /usr/lib/ruby/1.8/i686-darwin9.3.0
-hdrdir = $(topdir)
-VPATH = $(srcdir):$(topdir):$(hdrdir)
-exec_prefix = $(prefix)
-prefix = $(DESTDIR)/usr
-sharedstatedir = $(prefix)/com
-mandir = $(datarootdir)/man
-psdir = $(docdir)
-oldincludedir = $(DESTDIR)/usr/include
-localedir = $(datarootdir)/locale
-bindir = $(exec_prefix)/bin
-libexecdir = $(exec_prefix)/libexec
-sitedir = $(libdir)/ruby/site_ruby
-htmldir = $(docdir)
-vendorarchdir = $(vendorlibdir)/$(sitearch)
-includedir = $(prefix)/include
-infodir = $(datarootdir)/info
-vendorlibdir = $(vendordir)/$(ruby_version)
-sysconfdir = $(prefix)/etc
-libdir = $(exec_prefix)/lib
-sbindir = $(exec_prefix)/sbin
-rubylibdir = $(libdir)/ruby/$(ruby_version)
-docdir = $(datarootdir)/doc/$(PACKAGE)
-dvidir = $(docdir)
-vendordir = $(libdir)/ruby/vendor_ruby
-datarootdir = $(prefix)/share
-pdfdir = $(docdir)
-archdir = $(rubylibdir)/$(arch)
-sitearchdir = $(sitelibdir)/$(sitearch)
-datadir = $(datarootdir)
-localstatedir = $(prefix)/var
-sitelibdir = $(sitedir)/$(ruby_version)
-
-CC = gcc
-LIBRUBY = $(LIBRUBY_A)
-LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
-LIBRUBYARG_SHARED = 
-LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
-
-RUBY_EXTCONF_H = 
-CFLAGS   =  -fno-common -g -O2 -pipe -fno-common $(cflags) 
-INCFLAGS = -I. -I. -I/usr/lib/ruby/1.8/i686-darwin9.3.0 -I/Users/rbur004/Documents/src/ratlas/trunk/ruby_extension
-DEFS     = 
-CPPFLAGS =  -I/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/vecLib.framework/Versions/A/Headers/  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  
-CXXFLAGS = $(CFLAGS) 
-ldflags  = -L. 
-dldflags = 
-archflag = 
-DLDFLAGS = $(ldflags) $(dldflags) $(archflag)
-LDSHARED = cc -dynamic -bundle -undefined suppress -flat_namespace
-AR = ar
-EXEEXT = 
-
-RUBY_INSTALL_NAME = ruby
-RUBY_SO_NAME = ruby
-arch = i686-darwin9.3.0
-sitearch = i686-darwin9.3.0
-ruby_version = 1.8
-ruby = /usr/bin/ruby
-RUBY = $(ruby)
-RM = rm -f
-MAKEDIRS = mkdir -p
-INSTALL = /usr/bin/install -c
-INSTALL_PROG = $(INSTALL) -m 0755
-INSTALL_DATA = $(INSTALL) -m 644
-COPY = cp
-
-#### End of system configuration section. ####
+BLAS_OBJDIR = blas/lib
+LAPACK_OBJDIR = lapack/lib
+ROTG_OBJDIR = rotg/lib
 
 preload = 
 
-libpath = . $(libdir) /Developer/SDKs/MacOSX10.5.sdk//usr/lib/
-LIBPATH =  -L. -L$(libdir) -L/Developer/SDKs/MacOSX10.5.sdk//usr/lib/
+libpath = . $(libdir) rotg/lib lapack/lib blas/lib
+LIBPATH =  -L. -L$(libdir) -Lrotg/lib -Llapack/lib -Lblas/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
 DISTCLEANFILES = 
+DISTCLEANDIRS = 
 
 extout = 
 extout_prefix = 
 target_prefix = 
-LOCAL_LIBS = 
-LIBS =  -lrotg -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -ldl -lobjc  
-SRCS = blas_l1_c2rb.c blas_l2_c2rb.c blas_l3_c2rb.c blas_util.c complex_blas.c double_blas.c double_complex_blas.c double_lapack.c integer_blas.c lapack_c2rb.c rb_atlas.c rb_blas.c rb_lapack.c single_blas.c single_lapack.c
-OBJS = blas_l1_c2rb.o blas_l2_c2rb.o blas_l3_c2rb.o blas_util.o complex_blas.o double_blas.o double_complex_blas.o double_lapack.o integer_blas.o lapack_c2rb.o rb_atlas.o rb_blas.o rb_lapack.o single_blas.o single_lapack.o
+LOCAL_LIBS = $(BLAS_OBJDIR)/*.o $(LAPACK_OBJDIR)/*.o $(ROTG_OBJDIR)/*.o
+LIBS =  -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -lpthread -ldl -lobjc 
+ORIG_SRCS = rb_atlas.c rb_blas_classes.c rb_lapack_classes.c rb_rotg_classes.c
+SRCS = $(ORIG_SRCS) 
+OBJS = rb_atlas.o
+HDRS = 
 TARGET = ratlas
+TARGET_NAME = ratlas
+TARGET_ENTRY = Init_$(TARGET_NAME)
 DLLIB = $(TARGET).bundle
 EXTSTATIC = 
 STATIC_LIB = 
 
-BINDIR        = $(bindir)
-RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR    = $(sitelibdir)$(target_prefix)
-RUBYARCHDIR   = $(sitearchdir)$(target_prefix)
+BINDIR        = $(DESTDIR)$(bindir)
+RUBYCOMMONDIR = $(DESTDIR)$(sitedir)$(target_prefix)
+RUBYLIBDIR    = $(DESTDIR)$(sitelibdir)$(target_prefix)
+RUBYARCHDIR   = $(DESTDIR)$(sitearchdir)$(target_prefix)
+HDRDIR        = $(DESTDIR)$(rubyhdrdir)/ruby$(target_prefix)
+ARCHHDRDIR    = $(DESTDIR)$(rubyhdrdir)/$(arch)/ruby$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
-CLEANLIBS     = $(TARGET).bundle $(TARGET).il? $(TARGET).tds $(TARGET).map
-CLEANOBJS     = *.o *.a *.s[ol] *.pdb *.exp *.bak
+CLEANLIBS     = $(TARGET).bundle 
+CLEANOBJS     = *.o  *.bak
 
-all:		$(DLLIB)
-static:		$(STATIC_LIB)
+all:    $(DLLIB)
+static: $(STATIC_LIB)
+.PHONY: all install static install-so install-rb
+.PHONY: clean clean-so clean-static clean-rb
 
-clean:
-		@-$(RM) $(CLEANLIBS) $(CLEANOBJS) $(CLEANFILES)
+clean-static::
+clean-rb-default::
+clean-rb::
+clean-so::
+clean: clean-so clean-static clean-rb-default clean-rb
+		-$(Q)$(RM) $(CLEANLIBS) $(CLEANOBJS) $(CLEANFILES) .*.time
+		make -C blas clean
+		make -C lapack clean
+		make -C rotg clean
 
-distclean:	clean
-		@-$(RM) Makefile $(RUBY_EXTCONF_H) conftest.* mkmf.log
-		@-$(RM) core ruby$(EXEEXT) *~ $(DISTCLEANFILES)
+distclean-rb-default::
+distclean-rb::
+distclean-so::
+distclean-static::
+distclean: clean distclean-so distclean-static distclean-rb-default distclean-rb
+		-$(Q)$(RM) Makefile $(RUBY_EXTCONF_H) conftest.* mkmf.log
+		-$(Q)$(RM) core ruby$(EXEEXT) *~ $(DISTCLEANFILES)
+		-$(Q)$(RMDIRS) $(DISTCLEANDIRS) 2> /dev/null || true
 
-realclean:	distclean
+realclean: distclean
 install: install-so install-rb
 
-install-so: $(RUBYARCHDIR)
-install-so: $(RUBYARCHDIR)/$(DLLIB)
-$(RUBYARCHDIR)/$(DLLIB): $(DLLIB)
+install-so: $(DLLIB) ./.RUBYARCHDIR.time
 	$(INSTALL_PROG) $(DLLIB) $(RUBYARCHDIR)
+clean-static::
+	-$(Q)$(RM) $(STATIC_LIB)
 install-rb: pre-install-rb install-rb-default
 install-rb-default: pre-install-rb-default
 pre-install-rb: Makefile
 pre-install-rb-default: Makefile
-$(RUBYARCHDIR):
-	$(MAKEDIRS) $@
+pre-install-rb-default:
+	$(ECHO) installing default ratlas libraries
+./.RUBYARCHDIR.time:
+	$(Q) $(MAKEDIRS) $(RUBYARCHDIR)
+	$(Q) $(TOUCH) $@
 
 site-install: site-install-so site-install-rb
 site-install-so: install-so
 site-install-rb: install-rb
 
-.SUFFIXES: .c .m .cc .cxx .cpp .C .o
+.SUFFIXES: .c .m .cc .mm .cxx .cpp .C .o
 
 .cc.o:
-	$(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $<
+	$(ECHO) compiling $(<)
+	$(Q) $(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(COUTFLAG)$@ -c $<
+
+.mm.o:
+	$(ECHO) compiling $(<)
+	$(Q) $(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(COUTFLAG)$@ -c $<
 
 .cxx.o:
-	$(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $<
+	$(ECHO) compiling $(<)
+	$(Q) $(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(COUTFLAG)$@ -c $<
 
 .cpp.o:
-	$(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $<
+	$(ECHO) compiling $(<)
+	$(Q) $(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(COUTFLAG)$@ -c $<
 
 .C.o:
-	$(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) -c $<
+	$(ECHO) compiling $(<)
+	$(Q) $(CXX) $(INCFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(COUTFLAG)$@ -c $<
 
 .c.o:
-	$(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) -c $<
+	$(ECHO) compiling $(<)
+	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -c $<
 
-$(DLLIB): $(OBJS)
-	@-$(RM) $@
-	$(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
+.m.o:
+	$(ECHO) compiling $(<)
+	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -c $<
+
+$(DLLIB): $(OBJS) Makefile  $(BLAS_OBJDIR)/*.o $(LAPACK_OBJDIR)/*.o $(ROTG_OBJDIR)/*.o
+	make -C blas
+	make -C lapack
+	make -C rotg
+	$(ECHO) linking shared-object $(DLLIB)
+	-$(Q)$(RM) $(@)
+	$(Q) $(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
+	$(Q) test -z '$(RUBY_CODESIGN)' || codesign -s '$(RUBY_CODESIGN)' -f $@
 
 
 
-$(OBJS): ruby.h defines.h
+$(OBJS): $(HDRS) $(ruby_headers)

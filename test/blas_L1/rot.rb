@@ -9,10 +9,13 @@ class TestRot < TestBlas
 	def initialize 
 	  super
     gsl
+    ibm_examples
   end
   
   def test_rot(x,incx,y,incy,c,s,x_expected,y_expected, error_bound, test_message)
-    x.rot!(y, incx, incy, c, s);
+    #puts x.class, y.class, incx.class, incy.class, c.class, s.class
+    puts x, y, incx, incy, c, s
+    x.rot!(y, c, s, incx, incy);
     print_on_error( "rot x #{test_message}", x, x_expected, error_bound) 
     print_on_error( "rot y #{test_message}", y, y_expected, error_bound) 
   end
@@ -49,6 +52,97 @@ class TestRot < TestBlas
     test_rot(DoubleBlas[ -0.464 ], -1, DoubleBlas[ 0.7 ], -1, 0.0, -1.0,  DoubleBlas[ -0.7 ], DoubleBlas[ -0.464 ],  @dbleps, "gsl Test 602/603")
     test_rot(DoubleBlas[ -0.464 ], -1, DoubleBlas[ 0.7 ], -1, -1.0, 0.0,  DoubleBlas[ 0.464 ], DoubleBlas[ -0.7 ],  @dbleps, "gsl Test 604/605")
   end
+  
+  def ibm_examples
+    #Example 1
+    #    This example shows how to apply a real plane rotation to real 
+    #    vectors x and y having positive strides.
+    #    Call Statement and Input:
+
+    #               N   X  INCX  Y  INCY   C    S
+    #               |   |   |    |   |     |    |
+    #    CALL SROT( 5 , X , 1  , Y , 2  , 0.5 , S )
+
+    #    X        =  (1.0, 2.0, 3.0, 4.0, 5.0)
+    #    Y        =  (-1.0, . , -2.0, . , -3.0, . , -4.0, . , -5.0)
+
+    #    Output:
+
+    #    X        =  (-0.366, -0.732, -1.098, -1.464, -1.830)
+    #    Y        =  (-1.366, -2.732, -4.098, -5.464, -6.830)
+
+    #Example 2
+    #    This example shows how to apply a real plane rotation to real 
+    #    vectors x and y having strides of opposite sign.
+    #    Call Statement and Input:
+
+    #               N   X  INCX  Y   INCY   C    S
+    #               |   |   |    |    |     |    |
+    #    CALL SROT( 5 , X , 1  , Y , -1  , 0.5 , S )
+
+    #    X        =  (1.0, 2.0, 3.0, 4.0, 5.0)
+    #    Y        =  (-5.0, -4.0, -3.0, -2.0, -1.0)
+
+    #    Output:
+
+    #    X        =(same as output X in Example 1)
+    #    Y        =  (-6.830, -5.464, -4.098, -2.732, -1.366)
+    #Example 3
+    #    This example shows how scalar values in vectors x and y can be 
+    #    processed by specifying 0 strides and the number of elements to be 
+    #    processed, n, equal to 1.
+    #    Call Statement and Input:
+
+    #               N   X  INCX  Y  INCY   C    S
+    #               |   |   |    |   |     |    |
+    #    CALL SROT( 1 , X , 0  , Y , 0  , 0.5 , S )
+
+    #    X        =  (1.0)
+    #    Y        =  (-1.0)
+
+    #    Output:
+
+    #    X        =  (-0.366)
+    #    Y        =  (-1.366)
+
+    #Example 4
+    #    This example shows how to apply a complex plane rotation to complex
+    #     vectors x and y having positive strides.
+    #    Call Statement and Input:
+
+    #               N   X  INCX  Y  INCY   C    S
+    #               |   |   |    |   |     |    |
+    #    CALL CROT( 3 , X , 1  , Y , 2  , 0.5 , S )
+
+    #    X        =  ((1.0, 2.0), (2.0, 3.0), (3.0, 4.0))
+    #    Y        =  ((-1.0, 5.0), . , (-2.0, 4.0), . , (-3.0, 3.0))
+    #    S        =  (0.75, 0.50)
+
+    #    Output:
+
+    #    X        =  ((-2.750, 4.250), (-2.500, 3.500), (-2.250, 2.750))
+    #    Y        =  ((-2.250, 1.500), . , (-4.000, 0.750), . ,
+    #                 (-5.750, 0.000))
+
+    #Example 5
+    #    This example shows how to apply a real plane rotation to complex vectors 
+    #    x and y having positive strides.
+    #    Call Statement and Input:
+
+    #                N   X  INCX  Y  INCY   C    S
+    #                |   |   |    |   |     |    |
+    #    CALL CSROT( 3 , X , 1  , Y , 2  , 0.5 , S )
+
+    #    X        =  ((1.0, 2.0), (2.0, 3.0), (3.0, 4.0))
+    #    Y        =  ((-1.0, 5.0), . , (-2.0, 4.0), . , (-3.0, 3.0))
+    
+    #    Output:
+
+    #    X        =  ((-0.366, 5.330), (-0.732, 4.964), (-1.098, 4.598))
+    #    Y        =  ((-1.366, 0.768), . , (-2.732, -0.598), . ,
+    #                 (-4.098, -1.964))
+
+    end
 
 end
 
