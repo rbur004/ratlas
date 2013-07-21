@@ -15,15 +15,17 @@
 *     i.e. SX <- C*SX + S*SY
 *          SY <- C*SY - S*SX
 *
-*  x.rot!(y, c, s, inc_x, inc_y, n)
+*  x.rot!(y, rotg, inc_x, inc_y, n)
 Parameters
 N			The number of elements in vectors X and Y (might be different to vector size).
+      Especially if incx or incy is not 1.
 self	Vector X. Modified on return.
 inc_x	Stride within X. For example, if incX is 7, every 7th element is used.
 Y			Vector Y. Modified on return.
 inc_y	Stride within Y. For example, if incY is 7, every 7th element is used.
-c			The value cos(θ) in the Givens rotation matrix.
-s			The value sin(θ) in the Givens rotation matrix.
+rotg is Either srotg or drotg, for single or double c & s. 
+			c			The value cos(θ) in the Givens rotation matrix.
+			s			The value sin(θ) in the Givens rotation matrix.
 */
 #include "rb_blas.h"
 
@@ -36,9 +38,9 @@ VALUE rb_blas_xrot_mod(int argc, VALUE *argv, VALUE self)
   sRotg *srotg;
   dRotg *drotg;
   //char error_msg[64];
-  VALUE vector_y, rotg,  n_value,  incx_value,  incy_value, c_value, s_value;
+  VALUE vector_y, rotg,  n_value,  incx_value,  incy_value;
 
-  rb_scan_args(argc, argv, "25", &vector_y, &rotg, &c_value, &s_value,  &incx_value, &incy_value, &n_value);
+  rb_scan_args(argc, argv, "23", &vector_y, &rotg, &incx_value, &incy_value, &n_value);
 
   Data_Get_Struct(self, Matrix, dx);
   Data_Get_Struct(vector_y, Matrix, dy);
