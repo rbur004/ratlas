@@ -2,7 +2,7 @@ require 'ratlas'
 include RAtlas
 require 'complex' 
 include Math
-require 'testblas.rb'
+require_relative '../testblas.rb'
 
 class TestAsum < TestBlas
 
@@ -121,6 +121,7 @@ class TestAsum < TestBlas
     #  SUMM     =  55.0
     test_asum(ComplexBlas[ Complex(1.0, 2.0), Complex(-3.0, 4.0), Complex(5.0, -6.0 ), Complex(-7.0, -8.0), Complex(9.0, 10.0) ], 1, 5, 55.0, @flteps, "ibm example asum-05") 
 
+  
   end
 
 end

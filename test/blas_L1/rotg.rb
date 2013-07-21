@@ -2,7 +2,7 @@ require 'ratlas'
 include RAtlas
 require 'complex' 
 include Math
-require 'testblas.rb'
+require_relative '../testblas.rb'
 
 class TestRotg < TestBlas
   

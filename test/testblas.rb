@@ -9,6 +9,12 @@ class Numeric
   end
 end
 
+class Numeric
+  def within_bound(bound)
+    return self.abs <= bound
+  end
+end
+
 class TestBlas
   def initialize
     @flteps = 1e-4
@@ -18,7 +24,7 @@ class TestBlas
   def print_on_error(message, result, expected, bound )
     #Small issue here, for matrix tests Blas subtraction, >, and abs must work.
     if (error = (result - expected)).within_bound(bound) == false
-      print "#{message} Error = #{error}\n"
+      print "#{message} Got #{result} Expected #{expected} Error = #{error}\n"
     end
   end
 end

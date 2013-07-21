@@ -2,7 +2,7 @@ require 'ratlas'
 include RAtlas
 require 'complex' 
 include Math
-require 'testblas.rb'
+require_relative '../testblas.rb'
 
 class TestNrm2 < TestBlas
 
@@ -90,8 +90,8 @@ class TestNrm2 < TestBlas
         #
         #    SNORM    =  8.0
         #
-        # I get 0 as the result with my blas library?
-        #test_nrm2(SingleBlas[ 4.0 ], 0, 8.0, @flteps, "ibm examples nrm2-03", 4)
+        puts "nrm2-03: I get 0 as the result with my blas library unless I set incx to 1?"
+        test_nrm2(SingleBlas[ 4.0 ], 0, 8.0, @flteps, "ibm examples nrm2-03", 4)
         #Example 4
         #    This example shows a vector, x, containing complex numbers,
         #    and whose elements must be scaled to prevent overflow.

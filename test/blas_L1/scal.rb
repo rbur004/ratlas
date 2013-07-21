@@ -2,7 +2,7 @@ require 'ratlas'
 include RAtlas
 require 'complex' 
 include Math
-require '../testblas.rb'
+require_relative '../testblas.rb'
 
 class TestScal < TestBlas
 
@@ -172,7 +172,7 @@ class TestScal < TestBlas
     #
     #    X        =  (2.0)
     #
-    # Doesn't work for me, but incx = 1 does!
+    puts "scal-04: Doesn't work for me with incx=0, but incx = 1 does!"
     test_scal(SingleBlas[ 1.0 ], 0, 2.0, 
               SingleBlas[ 2.0 ], 
                   @flteps, "ibm example scal-04", 1)
