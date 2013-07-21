@@ -117,10 +117,15 @@ site-install-rb: install-rb
 	$(ECHO) compiling $(<)
 	$(Q) $(CC) $(INCFLAGS) $(CPPFLAGS) $(CFLAGS) $(COUTFLAG)$@ -c $<
 
-$(DLLIB): $(OBJS) Makefile  $(BLAS_OBJDIR)/*.o $(LAPACK_OBJDIR)/*.o $(ROTG_OBJDIR)/*.o
+conf.mk: extconf.rb
+	ruby extconf.rb
+
+submakefiles:
 	make -C blas
 	make -C lapack
 	make -C rotg
+
+$(DLLIB): $(OBJS) Makefile  submakefiles
 	$(ECHO) linking shared-object $(DLLIB)
 	-$(Q)$(RM) $(@)
 	$(Q) $(LDSHARED) -o $@ $(OBJS) $(LIBPATH) $(DLDFLAGS) $(LOCAL_LIBS) $(LIBS)
