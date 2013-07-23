@@ -8,3 +8,6 @@ require_relative 'blas_L1/scal.rb'
 require_relative 'blas_L1/swap.rb'
 require_relative 'blas_L1/rotg.rb'
 require_relative 'blas_L1/rot.rb'
+
+require_relative 'lapack/gesv.rb'
+require_relative 'lapack/getrf.rb'
