@@ -80,7 +80,7 @@ class TestCopy < TestBlas
     #        Y        =  (5.0, 4.0, 3.0, 2.0, 1.0)
     #
     test_copy(SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ], 1, 
-              SingleBlas[ 0.0, 0.0, 0.0, 0.0, 0,0 ], -1, 
+              SingleBlas[ 0.0, 0.0, 0.0, 0.0, 0.0 ], -1, 
               SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ], 
               SingleBlas[5.0, 4.0, 3.0, 2.0, 1.0], @flteps, "ibm example copy 02", 5)
     #    Example 3
@@ -100,7 +100,7 @@ class TestCopy < TestBlas
     #        Y        =  (13.0, 13.0, 13.0, 13.0, 13.0)
     #
     test_copy(SingleBlas[ 13.0 ], 0, 
-              SingleBlas[ 0.0, 0.0, 0.0, 0.0, 0,0 ], 1, 
+              SingleBlas[ 0.0, 0.0, 0.0, 0.0, 0.0 ], 1, 
               SingleBlas[ 13.0 ], 
               SingleBlas[13.0, 13.0, 13.0, 13.0, 13.0], @flteps, "ibm example copy 03", 5)
     #    Example 4
