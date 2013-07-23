@@ -28,8 +28,8 @@ class TestDot < TestBlas
   end
   
   def gsl
-    #Simple tests based on the values used in the gsl cblas test suite. 
 =begin
+    #Simple tests based on the values used in the gsl cblas test suite. 
     test_dotsds(SingleBlas[ 0.733 ], 1, SingleBlas[ 0.825 ], -1, 0.0,   0.604725,  @flteps, "gsl Test 1")
     test_dotsds(SingleBlas[ 0.733 ], 1, SingleBlas[ 0.825 ], -1, 0.1,   0.704725,  @flteps, "gsl Test 2")
     test_dotsds(SingleBlas[ 0.733 ], 1, SingleBlas[ 0.825 ], -1, 1.0,   1.604725,  @flteps, "gsl Test 3")
