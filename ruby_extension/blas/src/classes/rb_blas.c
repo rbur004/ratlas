@@ -664,7 +664,7 @@ VALUE Init_blas(VALUE myModule)
   //Couple of hacks to test the matrix results are in bounds.
   //The intent is to get the same behaviour as testing a scalar is in bounds.
   rb_define_method(myClass, "abs", rb_blas_abs, 0); //returns abs values of the array elements for testing results are in bounds.
-  rb_define_method(myClass, "within_bound", rb_blas_within_bound, 1); 
+  rb_define_method(myClass, "within_bound", rb_blas_within_bound, 2); 
   rb_define_method(myClass, "==", rb_blas_eql, 1);  
   rb_define_method(myClass, "*", rb_blas_times, 1); 
   

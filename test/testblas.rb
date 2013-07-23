@@ -4,16 +4,17 @@ require 'complex'
 include Math
 
 class Numeric
-  def within_bound(bound)
-    return self.abs <= bound
+  def within_bound(value, bound)
+    return (self - value).abs <= bound
   end
 end
 
-class Numeric
-  def within_bound(bound)
-    return self.abs <= bound
+class Complex
+  def within_bound(value, bound)
+    return (self - value).abs <= bound
   end
 end
+
 
 class TestBlas
   def initialize
@@ -23,8 +24,8 @@ class TestBlas
   
   def print_on_error(message, result, expected, bound )
     #Small issue here, for matrix tests Blas subtraction, >, and abs must work.
-    if (error = (result - expected)).within_bound(bound) == false
-      print "#{message} Got #{result} Expected #{expected} Error = #{error}\n"
+    if result.within_bound(expected, bound) == false
+      print "#{message} Got #{result} Expected #{expected}\n"
     end
   end
 end
