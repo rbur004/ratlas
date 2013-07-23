@@ -28,6 +28,14 @@ class TestRotg < TestBlas
     print_on_error( "rot s #{test_message}", r.s, s_expected, error_bound) 
   end
 
+  def test_drotg(a,b,r_expected,z_expected, c_expected, s_expected, error_bound, test_message, c = nil, s = nil)
+    r = c == nil ? Drotg.new(a, b) : Drotg.new(a,b,c,s);
+    print_on_error( "rot r #{test_message}", r.r, r_expected, error_bound) 
+    print_on_error( "rot z #{test_message}", r.z, z_expected, error_bound) 
+    print_on_error( "rot c #{test_message}", r.c, c_expected, error_bound) 
+    print_on_error( "rot s #{test_message}", r.s, s_expected, error_bound) 
+  end
+
   def local_tests
     #Giving all params means the srotg call is not made.
     #Tests given params can be recalled correctly
@@ -69,6 +77,7 @@ class TestRotg < TestBlas
         #      S        =  1.0
         #  
         test_srotg( 0.0, 2.0, 2.0, 1.0, 0.0, 1.0, 0.0, "ibm example rotg-02")
+        test_drotg( 0.0, 2.0, 2.0, 1.0, 0.0, 1.0, 0.0, "ibm example rotg-02-d")
         #  Example 3
         #      This example shows the construction of a real Givens plane rotation, 
         #      where |b| > greater than |a|.

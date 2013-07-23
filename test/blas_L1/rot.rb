@@ -109,6 +109,12 @@ class TestRot < TestBlas
               SingleBlas[ -0.366, -0.732, -1.098, -1.464, -1.830 ], 
               SingleBlas[ -6.830, -5.464, -4.098, -2.732, -1.366 ], 
               0.001, "ibm examples srotg-02")
+    test_drot(DoubleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ], 1, 
+              DoubleBlas[ -5.0, -4.0, -3.0, -2.0, -1.0 ], -1, 
+              0.5, Math::sqrt(3.0)/2.0, 
+              DoubleBlas[ -0.366, -0.732, -1.098, -1.464, -1.830 ], 
+              DoubleBlas[ -6.830, -5.464, -4.098, -2.732, -1.366 ], 
+              0.001, "ibm examples srotg-02-b")
     #puts "** i.e done manually ****"
     #puts (SingleBlas[ 1.0, 2.0, 3.0, 4.0, 5.0 ] * 0.5) + (SingleBlas[ -1.0, -2.0, -3.0, -4.0, -5.0 ] * (Math::sqrt(3.0)/2.0))
     #puts (SingleBlas[ -5.0, -4.0, -3.0, -2.0, -1.0 ] * 0.5) - (SingleBlas[ 5.0, 4.0, 3.0, 2.0, 1.0 ] * (Math::sqrt(3.0)/2.0))
