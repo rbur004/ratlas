@@ -138,7 +138,7 @@ static VALUE rblas_srotg_initialize(int argc, VALUE *argv, VALUE obj)
   if(b == Qnil) srotg->z = (float) 0.0; else srotg->z = (float) NUM2DBL(b);
 
   if(c == Qnil) srotg->c = (float) 0.0; else srotg->c = (float) NUM2DBL(c);
-  if(s == Qnil) srotg->z = (float) 0.0; else srotg->s = (float) NUM2DBL(s);
+  if(s == Qnil) srotg->s = (float) 0.0; else srotg->s = (float) NUM2DBL(s);
   if(argc == 2) //if not nil then assume have to calculte values for c & s
     cblas_srotg(&srotg->r, &srotg->z, &srotg->c, &srotg->s);
   

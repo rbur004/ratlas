@@ -137,10 +137,17 @@ static VALUE rblas_drotg_initialize(int argc, VALUE *argv, VALUE obj)
 
   if(a == Qnil) drotg->r = 0.0; else drotg->r = NUM2DBL(a);
   if(b == Qnil) drotg->z = 0.0; else drotg->z = NUM2DBL(b);
-  if(c == Qnil) drotg->c = 0.0; else drotg->c = NUM2DBL(c);
-  if(s == Qnil) drotg->z = 0.0; else drotg->s = NUM2DBL(s);
   if(argc == 2) //if not nil then assume have to calculte values for c & s
-    cblas_drotg(&drotg->r, &drotg->z, &drotg->c, &drotg->s);
+	{		
+		drotg->c = 0.0;
+		drotg->s = 0.0;
+		cblas_drotg(&drotg->r, &drotg->z, &drotg->c, &drotg->s);
+	}  
+	else
+	{
+	  if(c == Qnil) drotg->c = 0.0; else drotg->c = NUM2DBL(c);
+	  if(s == Qnil) drotg->s = 0.0; else drotg->s = NUM2DBL(s);
+	}
 
   return obj;
 }
