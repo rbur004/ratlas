@@ -5,12 +5,8 @@ include Math
 
 class Numeric
   def within_bound(value, bound)
-    return (self - value).abs <= bound
-  end
-end
-
-class Complex
-  def within_bound(value, bound)
+   # puts "in Numeric"
+   # puts self.class, value.class, bound.class
     return (self - value).abs <= bound
   end
 end
@@ -24,7 +20,9 @@ class TestBlas
   
   def print_on_error(message, result, expected, bound )
     #Small issue here, for matrix tests Blas subtraction, >, and abs must work.
-    if result.within_bound(expected, bound) == false
+    #puts result.class, expected.class, bound.class
+    x = result.within_bound(expected, bound)
+    if x == false
       print "#{message} Got #{result} Expected #{expected}\n"
     end
   end

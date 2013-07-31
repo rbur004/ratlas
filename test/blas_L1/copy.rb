@@ -123,7 +123,7 @@ class TestCopy < TestBlas
               ComplexBlas[ Complex( 0.0, 0.0),Complex( 0.0, 0.0),Complex( 0.0, 0.0),Complex( 0.0, 0.0),Complex( 0.0, 0.0),Complex( 0.0, 0.0),Complex( 0.0, 0.0) ], 2,
               ComplexBlas[ Complex(1.0, 1.0), Complex(2.0, 2.0), Complex(3.0, 3.0), Complex(4.0, 4.0)  ], 
               ComplexBlas[ Complex(1.0, 1.0),Complex( 0.0, 0.0), Complex(2.0, 2.0),Complex( 0.0, 0.0), Complex(3.0, 3.0),Complex( 0.0, 0.0), Complex(4.0, 4.0) ],  
-              Complex(@flteps,@flteps), "ibm example copy 04", 4)
+              @flteps, "ibm example copy 04", 4)
 =end
   end
   

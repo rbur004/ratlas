@@ -33,10 +33,16 @@ class TestAsum < TestBlas
 
     #2D Vector, incx -1
     #gsl cblas returns 0 when incx is negative. Hence the gsl tests need modifying for the Atlas results!
+    test_amax(SingleBlas[ 0.487, 0.918 ], 1, 1, 0, "gsl Test 60")
+    test_amax(DoubleBlas[ 0.537, 0.826 ], 1, 1,  0, "gsl Test 61")
+    test_amax(ComplexBlas[ Complex(0.993, 0.172), Complex(-0.825, 0.873) ], 1,  1,  0, "gsl Test 62")
+    test_amax(DoubleComplexBlas[ Complex(  0.913, -0.436) , Complex( -0.134, 0.129)], 1, 0, 0, "gsl Test 63")
+=begin
     test_amax(SingleBlas[ 0.487, 0.918 ], -1, 1, 0, "gsl Test 60")
     test_amax(DoubleBlas[ 0.537, 0.826 ], -1, 1,  0, "gsl Test 61")
     test_amax(ComplexBlas[ Complex(0.993, 0.172), Complex(-0.825, 0.873) ], -1,  1,  0, "gsl Test 62")
     test_amax(DoubleComplexBlas[ Complex(  0.913, -0.436) , Complex( -0.134, 0.129)], -1, 0, 0, "gsl Test 63")
+=end
 
   end
   
@@ -102,9 +108,11 @@ class TestAsum < TestBlas
     #     Output:
     #
     #     IMAX     =  7
-    #
+    # ATLAS works only with +inc
+    #test_amax(SingleBlas[ 3.0, 0.0 , 5.0, 0.0 , -8.0, 0.0 , 6.0, 0.0 , 8.0, 0.0 ,
+    #             4.0, 0.0 , 8.0, 0.0 , 2.0 ], -2, 2, 0, "ibm Test amax-04")
     test_amax(SingleBlas[ 3.0, 0.0 , 5.0, 0.0 , -8.0, 0.0 , 6.0, 0.0 , 8.0, 0.0 ,
-                 4.0, 0.0 , 8.0, 0.0 , 2.0 ], -2, 2, 0, "ibm Test amax-04")
+                 4.0, 0.0 , 8.0, 0.0 , 2.0 ], 2, 2, 0, "ibm Test amax-04")
      # Example 5
      #     This example shows a vector, x, containing complex numbers and having a 
      #     stride of 1.
@@ -120,7 +128,10 @@ class TestAsum < TestBlas
      #     Output:
      #
      #     IMAX     =  2
-     test_amax(ComplexBlas[ Complex(9.0 , 2.0) , Complex(7.0 , -8.0) , Complex(-5.0 , -10.0) , Complex(-4.0 , 10.0), Complex(6.0 , 3.0)], -2, 1, 0, "ibm Test amax-05")
+     #
+     # Atlas inc must be positive
+     #test_amax(ComplexBlas[ Complex(9.0 , 2.0) , Complex(7.0 , -8.0) , Complex(-5.0 , -10.0) , Complex(-4.0 , 10.0), Complex(6.0 , 3.0)], -2, 1, 0, "ibm Test amax-05")
+     test_amax(ComplexBlas[ Complex(9.0 , 2.0) , Complex(7.0 , -8.0) , Complex(-5.0 , -10.0) , Complex(-4.0 , 10.0), Complex(6.0 , 3.0)], 2, 1, 0, "ibm Test amax-05")
 
   end
 

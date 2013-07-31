@@ -2,7 +2,7 @@ require 'ratlas'
 include RAtlas
 require 'complex' 
 include Math
-require 'testblas.rb'
+require '../testblas.rb'
 
 class TestConstructors < TestBlas
   def initialize
@@ -46,7 +46,7 @@ class TestConstructors < TestBlas
     validate(DoubleBlas.rows([3.6,4.5],[1.2,1.3]), [[3.6,4.5],[1.2,1.3]], @dbleps, "Test 6")
     validate(DoubleBlas.columns([3.6,4.5],[1.2,1.3]), [[3.6,1.2],[4.5,1.3]], @dbleps, "Test 7")
     validate(DoubleBlas[ [3.6,4.5],[1.2,1.3] ], [ [3.6,4.5],[1.2,1.3] ], @dbleps, "Test 8")
-
+=begin
     validate(Blas.rows(Blas::GE, Blas::C, [Complex(3.6,2.8), Complex(4.5,-8.2)],[Complex(1.2,4.4), Complex(1.3,9.1)]), [[Complex(3.6,2.8), Complex(4.5,-8.2)],[Complex(1.2,4.4), Complex(1.3,9.1)]], Complex(@flteps, @flteps), "Test 9")
     validate(ComplexBlas.rows([Complex(3.6,2.8), Complex(4.5,-8.2)],[Complex(1.2,4.4), Complex(1.3,9.1)]), [[Complex(3.6,2.8), Complex(4.5,-8.2)],[Complex(1.2,4.4), Complex(1.3,9.1)]], Complex(@flteps, @flteps), "Test 10")
     validate(ComplexBlas.columns([Complex(3.6,2.8), Complex(4.5,-8.2)],[Complex(1.2,4.4), Complex(1.3,9.1)]), [[Complex(3.6,2.8), Complex(1.2,4.4)],[Complex(4.5,-8.2), Complex(1.3,9.1)]], Complex(@flteps, @flteps), "Test 11")
@@ -72,6 +72,7 @@ class TestConstructors < TestBlas
     validate(IntegerBlas.rows([3,4],[1,2]), [[3,4],[1,2]], 0, "Test 26")
     validate(IntegerBlas.columns([3,4],[1,2]), [[3,1],[4,2]], 0, "Test 27")
     validate(IntegerBlas[ [3,4],[1,2] ], [ [3,4],[1,2] ], 0,"Test 28")
+=end
 
   end
 end
