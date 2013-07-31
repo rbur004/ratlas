@@ -14,12 +14,16 @@ DEFFILE =
 CLEANFILES = mkmf.log
 DISTCLEANFILES = 
 DISTCLEANDIRS = 
-
+LIBSS = /usr/lib
 extout = 
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = $(BLAS_OBJDIR)/*.o $(LAPACK_OBJDIR)/*.o $(ROTG_OBJDIR)/*.o
-LIBS =  -lclapack -llapack -lf77lapack -lcblas -lblas -latlas  -lpthread -ldl -lobjc 
+#
+#LIBS =  -llapack  -lf77lapack -lclapack  -lcblas -lblas -latlas  -lpthread -ldl -lobjc 
+#LIBS =  /usr/lib/libsatlas.dylib /usr/lib/libtatlas.dylib -lpthread -ldl -lobjc 
+#LIBS =  $(LIBSS)/liblapack.a  $(LIBSS)/libcblas.a $(LIBSS)/libf77blas.a $(LIBSS)/libatlas.a  -lpthread -ldl -lobjc 
+LIBS =  /usr/lib/libblas.dylib  /usr/lib/libcblas.dylib  -lpthread -ldl -lobjc 
 ORIG_SRCS = rb_atlas.c rb_blas_classes.c rb_lapack_classes.c rb_rotg_classes.c
 SRCS = $(ORIG_SRCS) 
 OBJS = rb_atlas.o
