@@ -75,7 +75,7 @@ VALUE rb_lapack_xgetrs_mod(VALUE self,  VALUE result, VALUE ipiv, VALUE transpos
   Matrix *m,  *r, *i;
   int error;
   int info;
-  char trans = 'N';
+  char *trans = "N";
   const char *args[] = { 
               "Transpose argument error",
               "Number of equations in 'A'",
@@ -93,26 +93,29 @@ VALUE rb_lapack_xgetrs_mod(VALUE self,  VALUE result, VALUE ipiv, VALUE transpos
   
   switch(NUM2INT(transpose))
   {
-    case CblasNoTrans: trans = 'N'; break;
-    case CblasTrans: trans = 'T'; break;
-    case CblasConjTrans: trans = 'C'; break;
+    case CblasNoTrans: trans = "N"; break;
+    case CblasTrans: trans = "T"; break;
+    case CblasConjTrans: trans = "C"; break;
   }
 //   SUBROUTINE SGETRS( TRANS, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+// /* Subroutine */ int dgetrs_(char *trans, __CLPK_integer *n, __CLPK_integer *nrhs, 
+//        __CLPK_doublereal *a, __CLPK_integer *lda, __CLPK_integer *ipiv, __CLPK_doublereal *b, __CLPK_integer *
+//        ldb, __CLPK_integer *info);
 
   switch(m->data_type)
   {
   case Single_t: 
-    error = sgetrs_(&trans,  &m->ncols, &r->ncols, m->data, &m->nrows, i->data, r->data, &r->nrows, &info);
+    error = sgetrs_(trans,  &m->ncols, &r->ncols, (__CLPK_real *) m->data, &m->nrows, (__CLPK_integer *) i->data, (__CLPK_real *) r->data, &r->nrows, &info);
     break;
   case Double_t:
-    error = dgetrs_(&trans,  &m->ncols, &r->ncols, m->data, &m->nrows, i->data, r->data, &r->nrows, &info);
+    error = dgetrs_(trans,  &m->ncols, &r->ncols, (__CLPK_doublereal *) m->data, &m->nrows,  (__CLPK_integer *) i->data, (__CLPK_doublereal *) r->data, &r->nrows, &info);
     break;
     
   case Complex_t:
-    error = cgetrs_(&trans,  &m->ncols, &r->ncols, m->data, &m->nrows, i->data, r->data, &r->nrows, &info);
+    error = cgetrs_(trans,  &m->ncols, &r->ncols, (__CLPK_complex *) m->data, &m->nrows, (__CLPK_integer *) i->data, (__CLPK_complex *) r->data, &r->nrows, &info);
     break;
   case Double_Complex_t:
-    error = zgetrs_(&trans,  &m->ncols, &r->ncols, m->data, &m->nrows, i->data, r->data, &r->nrows, &info);
+    error = zgetrs_(trans,  &m->ncols, &r->ncols, (__CLPK_doublecomplex *)m->data, &m->nrows, (__CLPK_integer *)i->data,  (__CLPK_doublecomplex *) r->data, &r->nrows, &info);
     break;
     
   }
