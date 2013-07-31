@@ -11,3 +11,4 @@ require_relative 'blas_L1/rot.rb'
 
 require_relative 'lapack/gesv.rb'
 require_relative 'lapack/getrf.rb'
+require_relative 'lapack/getrs.rb'
