@@ -12,17 +12,17 @@ VALUE rb_blas_within_bound(VALUE self, VALUE expected, VALUE bound)
   Data_Get_Struct(self, Matrix, m);
   Data_Get_Struct(expected, Matrix, n);
 
-	if(m->nrows != n->nrows || m->ncols != n->ncols)
-	{
-		return Qfalse;
-	}
+  if(m->nrows != n->nrows || m->ncols != n->ncols)
+  {
+    return Qfalse;
+  }
   for(r = 0; r < m->nrows; r++)
   {
     for(c = 0; c < m->ncols; c++)
     { //use ruby to do this, as it will happily handle the complex data types.
       if( TYPE(rb_funcall(rb_blas_member_to_value(m, r, c),  rb_intern("within_bound"), 2, rb_blas_member_to_value(n, r, c), bound)) == TYPE(Qfalse) ) 
-				return Qfalse;
-    } 
+        return Qfalse;
+    }
   }
   return Qtrue;
 }
